@@ -68,10 +68,14 @@ a:hover {
 }
 
 .failed {
-  background: url(../images/failed.png) repeat-y !important;
+    background: url(../images/failed.png) repeat-y !important;
 }
 
-.success a, .failed a {
+.building {
+    background: url(../images/nobuild.png) repeat-y !important;
+}
+
+.success a, .failed a, .building a {
     color: #fff !important;
 }
 
@@ -97,7 +101,6 @@ a:hover {
     padding: 10px 15px;
     margin-bottom: 15px;
     border: 3px solid #ccc;
-    background: url(../images/nobuild.png) repeat-y;
 }
 
 #build a {
