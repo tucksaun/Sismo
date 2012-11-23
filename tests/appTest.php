@@ -85,4 +85,29 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\RuntimeException');
         $sismo = $this->app['sismo'];
     }
+
+    public function validConfigProvider()
+    {
+        return array(
+            array('<?php return array();', 0),
+            array('<?php return array(new Sismo\Project("foo"));', 1),
+            array('<?php return \SplFixedArray::fromArray(array(new Sismo\Project("foo")));', 1),
+        );
+    }
+
+    /**
+     * @dataProvider validConfigProvider
+     */
+    public function testValidConfig($config, $count)
+    {
+        file_put_contents($this->app['config.file'], $config);
+
+        try
+        {
+            $sismo = $this->app['sismo'];
+            $this->assertEquals(count($sismo->getProjects()), $count);
+        } catch(\Exception $e) {
+            $this->fail('An unexpected exception has been raised.');
+        }
+    }
 }

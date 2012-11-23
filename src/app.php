@@ -107,8 +107,8 @@ $app['sismo'] = $app->share(function () use ($app) {
         throw new \RuntimeException(sprintf('The "%s" configuration file must return an array of Projects (returns null).', $app['config.file']));
     }
 
-    if (!is_array($projects)) {
-        throw new \RuntimeException(sprintf('The "%s" configuration file must return an array of Projects (returns a non-array).', $app['config.file']));
+    if (!is_array($projects) && !$projects instanceof \Traversable) {
+        throw new \RuntimeException(sprintf('The "%s" configuration file must return an array or a Traversable instance of Projects (returns a non-array non-Traversable).', $app['config.file']));
     }
 
     foreach ($projects as $project) {
